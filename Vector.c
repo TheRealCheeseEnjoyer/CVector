@@ -16,7 +16,7 @@ struct vector_t {
 /// Initialize a vector with default capacity
 /// @param typeSize The size in bytes of the object the vector holds
 /// @return A handle to the vector
-Vector Vector_Init(const size_t typeSize) {
+Vector Vec_Init(const size_t typeSize) {
     return Vector_InitC(typeSize, DEFAULT_CAPACITY);
 }
 
@@ -24,7 +24,7 @@ Vector Vector_Init(const size_t typeSize) {
 /// @param typeSize The size in bytes of the object the vector holds
 /// @param capacity Custom initial capacity
 /// @return A handle to the vector
-Vector Vector_InitC(const size_t typeSize, const size_t capacity) {
+Vector Vec_InitC(const size_t typeSize, const size_t capacity) {
     Vector v = malloc(sizeof(struct vector_t));
     v->capacity = capacity;
     v->size = 0;
@@ -35,7 +35,7 @@ Vector Vector_InitC(const size_t typeSize, const size_t capacity) {
 
 /// Resizes the vector to trim excess space
 /// @param v Handle to a vector
-void Vector_Resize(Vector v) {
+void Vec_Resize(Vector v) {
     void* newMem = realloc(v->data, v->size * v->typeSize);
     if (!newMem) return;
     v->data = newMem;
@@ -46,7 +46,7 @@ void Vector_Resize(Vector v) {
 /// @param v A handle to the vector
 /// @param item The item to copy into the vector
 /// @return A pointer to the item's location
-void* Vector_Append(Vector v, void* item) {
+void* Vec_Append(Vector v, void* item) {
     if (v->size == v->capacity) {
         v->capacity *= RESIZE_MULTIPLIER;
         void* newData = realloc(v->data, v->capacity * v->typeSize);
@@ -66,7 +66,7 @@ void* Vector_Append(Vector v, void* item) {
 /// @param v A handle to the vector
 /// @param index Index of the object to get
 /// @return A pointer to the item's location, NULL if the index is out of bounds
-void* Vector_Get(Vector v, const size_t index) {
+void* Vec_Get(Vector v, const size_t index) {
     if (index >= v->size) {
         return NULL;
     }
@@ -77,7 +77,7 @@ void* Vector_Get(Vector v, const size_t index) {
 /// Deletes an item from the vector
 /// @param v A handle to the vector
 /// @param index Index of the item to delete
-void Vector_Remove(Vector v, size_t index) {
+void Vec_Remove(Vector v, size_t index) {
     void* target = Vector_Get(v, index);
     if (target == NULL) return;
     memmove(target, target + v->typeSize, (v->size - index - 1) * v->typeSize);
@@ -86,27 +86,27 @@ void Vector_Remove(Vector v, size_t index) {
 
 /// Deletes all items from the vector
 /// @param v Handle to a vector
-void Vector_Clear(Vector v) {
+void Vec_Clear(Vector v) {
     v->size = 0;
 }
 
 /// Get the size of the vector
 /// @param v Handle to a vector
 /// @return Size of the vector
-size_t Vector_Size(Vector v) {
+size_t Vec_Size(Vector v) {
     return v->size;
 }
 
 /// Get the capacity of the vector
 /// @param v Handle to a vector
 /// @return Capacity of the vector
-size_t Vector_Capacity(Vector v) {
+size_t Vec_Capacity(Vector v) {
     return v->capacity;
 }
 
 /// Frees the vector
 /// @param v Handle to a vector
-void Vector_Free(Vector v) {
+void Vec_Free(Vector v) {
     free(v->data);
     free(v);
 }
