@@ -4,6 +4,11 @@ A simple, cross-platform, thread unsafe dynamic array in C
 ## Implementation
 This implementation uses a raw memory pool coupled with the size in bytes of the objects to store, granting the ability to store any type of data with a retrieval time complexity of O(1).
 
+## Installation
+1. Drop Vector.h and Vector.c in your project
+2. ????
+3. Profit
+
 ## Usage
 Every function has the Vec_ Prefix.  
 Default capacity and Resize multiplier are defined at the top of Vector.c and can be changed as needed
