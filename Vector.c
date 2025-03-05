@@ -17,7 +17,7 @@ struct vector_t {
 /// @param typeSize The size in bytes of the object the vector holds
 /// @return A handle to the vector
 Vector Vec_Init(const size_t typeSize) {
-    return Vector_InitC(typeSize, DEFAULT_CAPACITY);
+    return Vec_InitC(typeSize, DEFAULT_CAPACITY);
 }
 
 /// Initialize a vector with custom capacity
@@ -78,7 +78,7 @@ void* Vec_Get(Vector v, const size_t index) {
 /// @param v A handle to the vector
 /// @param index Index of the item to delete
 void Vec_Remove(Vector v, size_t index) {
-    void* target = Vector_Get(v, index);
+    void* target = Vec_Get(v, index);
     if (target == NULL) return;
     memmove(target, target + v->typeSize, (v->size - index - 1) * v->typeSize);
     v->size--;
