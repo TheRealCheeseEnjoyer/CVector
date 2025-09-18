@@ -2,20 +2,25 @@
 #define VECTOR_H
 #include <stddef.h>
 
-typedef struct vector_t* Vector;
+/// @param itemSize size in bytes of the items
+/// @return pointer to vector
+void* vec_init(size_t itemSize);
 
-Vector Vec_Init(size_t typeSize);
-Vector Vec_InitC(size_t typeSize, size_t capacity);
+/// @param itemSize size in bytes of the items
+/// @param capacity initial capacity
+/// @return pointer to vector
+void* vec_init_cap(size_t itemSize, size_t capacity);
 
-void Vec_Resize(Vector v);
-void* Vec_Append(Vector v, void* item);
-void* Vec_Get(Vector v, size_t index);
-void Vec_Remove(Vector v, size_t index);
-void Vec_Clear(Vector v);
+/// @param vec vector
+/// @param item item to copy into the vector
+/// @return 0 on failure (e.g. out of memory for reallocations), 1 on success
+int vec_append(void* vec, void* item);
 
-size_t Vec_Size(Vector v);
-size_t Vec_Capacity(Vector v);
+size_t vec_capacity(void* vec);
+size_t vec_size(void* vec);
 
-void Vec_Free(Vector v);
+void vec_clear(void* vec);
+
+void vec_free(void* mem);
 
 #endif
