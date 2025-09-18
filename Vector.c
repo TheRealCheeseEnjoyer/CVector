@@ -29,7 +29,7 @@ void* vec_init_cap(size_t itemSize, size_t capacity) {
     return memory + 1;
 }
 
-void vec_append(void* vec, void* item) {
+int vec_append(void* vec, void* item) {
     void** v = vec;
     head* h = *v - sizeof(head);
     if (h->size + 1 > h->capacity) {
@@ -37,7 +37,7 @@ void vec_append(void* vec, void* item) {
         head* newMemory = realloc(h, sizeof(head) + newCapacity * h->itemSize);
         if (newMemory == NULL) {
             printf("vec_append: realloc failed\n");
-            return;
+            return 0;
         }
         h = newMemory;
         h->capacity = newCapacity;
@@ -45,6 +45,7 @@ void vec_append(void* vec, void* item) {
     }
     memcpy(*v + h->itemSize * h->size, item, h->itemSize);
     h->size += 1;
+    return 1;
 }
 
 size_t vec_capacity(void *vec) {
