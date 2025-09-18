@@ -42,16 +42,25 @@ This allows to retrieve items like
     }
 ## Documentation
 Default capacity is 16, defined in Vector.c
-+ `void* vec_init(size_t itemSize)`: 
-itemSize: the size in bytes of the items
-returns pointer to a vector of items 
 
-+ void* vec_init_cap(size_t itemSize, size_t capacity): same as `vec_init()` but with custom initial capacity
+void* vec_init(size_t itemSize):
+   
++ itemSize: the size in bytes of the items
 
-+ int vec_append(void* vec, void* item):
-vec: pointer to vector returned by `vec_init`
-item: pointer to item to append
-returns 1 on success and 0 on failure
++ returns pointer to a vector of items 
+
+void* vec_init_cap(size_t itemSize, size_t capacity): 
+
++ same as `vec_init()` but with custom initial capacity
+
+int vec_append(void* vec, void* item):
+  
++ vec: pointer to vector returned by `vec_init`
+
++ item: pointer to item to append
+
++ returns 1 on success and 0 on failure
+
 WARNING: due to possible relocations the value of the pointer may change and any other pointer to that same memory may be pointing to invalid memory after an append.
 
         test* vec = vec_init(sizeof(text));
@@ -59,9 +68,18 @@ WARNING: due to possible relocations the value of the pointer may change and any
         while (vec_size(vec) < 100)
 	        vec_append(&vec, &item);
         printf("%d\n", vec1[0].a); // vec1 may be pointing to invalid memory if a relocation occurred
-+ size_t vec_capacity(void* vec): returns the vector's capacity
-+ size_t vec_size(void* vec): returns the size of the vector
-+ void vec_clear(void* vec): clears a vector
-NOTE: this does not release memory, it just sets the size to 0
-+ void vec_free(void* vec): frees the vector
+size_t vec_capacity(void* vec):
+
++ returns the vector's capacity
+  
+size_t vec_size(void* vec):
++ returns the size of the vector
+  
+void vec_clear(void* vec):
++ clears a vector
+  
++ NOTE: this does not release memory, it just sets the size to 0
+
+void vec_free(void* vec):
++ frees the vector
 
