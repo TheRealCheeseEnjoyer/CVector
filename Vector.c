@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #define DEFAULT_CAPACITY 16
+#define DEFAULT_MULTIPLIER 2
 
 typedef struct {
     size_t itemSize;
@@ -32,7 +33,7 @@ void vec_append(void* vec, void* item) {
     void** v = vec;
     head* h = *v - sizeof(head);
     if (h->size + 1 > h->capacity) {
-        size_t newCapacity = h->capacity * 2;
+        size_t newCapacity = h->capacity * DEFAULT_MULTIPLIER;
         head* newMemory = realloc(h, sizeof(head) + newCapacity * h->itemSize);
         if (newMemory == NULL) {
             printf("vec_append: realloc failed\n");
