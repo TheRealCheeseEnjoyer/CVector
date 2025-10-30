@@ -91,21 +91,29 @@ int vec_insert(void* vec, void* item, size_t index) {
 }
 
 size_t vec_capacity(void *vec) {
+    if (vec == NULL)
+        return 0;
     head* h = vec - sizeof(head);
     return h->capacity;
 }
 
 size_t vec_size(void *vec) {
+    if (vec == NULL)
+        return 0;
     head* h = vec - sizeof(head);
     return h->size;
 }
 
 void vec_clear(void *vec) {
+    if (vec == NULL)
+        return;
     head* h = vec - sizeof(head);
     h->size = 0;
 }
 
-void vec_free(void* memory) {
-    head* h = memory - sizeof(head);
+void vec_free(void* vec) {
+    if (vec == NULL)
+        return;
+    head* h = vec - sizeof(head);
     free(h);
 }
