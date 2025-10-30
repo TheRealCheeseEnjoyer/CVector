@@ -16,6 +16,8 @@ void* vec_init_cap(size_t itemSize, size_t capacity);
 /// @return 0 on failure (e.g. out of memory for reallocations), 1 on success
 int vec_append(void* vec, void* item);
 
+int vec_append_empty(void* vec);
+
 size_t vec_capacity(void* vec);
 size_t vec_size(void* vec);
 

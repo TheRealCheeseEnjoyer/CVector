@@ -49,6 +49,25 @@ int vec_append(void* vec, void* item) {
     return 1;
 }
 
+int vec_append_empty(void* vec) {
+    void** v = vec;
+    head* h = *v - sizeof(head);
+    if (h->size + 1 > h->capacity) {
+        size_t newCapacity = h->capacity * DEFAULT_MULTIPLIER;
+        head* newMemory = realloc(h, sizeof(head) + newCapacity * h->itemSize);
+        if (newMemory == NULL) {
+            printf("vec_append: realloc failed\n");
+            return 0;
+        }
+        h = newMemory;
+        h->capacity = newCapacity;
+        *v = h + 1;
+    }
+    memset(*v + h->itemSize * h->size, 0, h->itemSize);
+    h->size += 1;
+    return 1;
+}
+
 size_t vec_capacity(void *vec) {
     head* h = vec - sizeof(head);
     return h->capacity;
