@@ -69,7 +69,7 @@ int vec_append_empty(void* vec) {
 }
 
 int vec_insert(void* vec, void* item, size_t index) {
-    if (index == vec_size(vec))
+    if (index == vec_size(*(void**)vec))
         return vec_append(vec, item);
 
     void** v = vec;
