@@ -69,8 +69,8 @@ int vec_append_empty(void* vec) {
 }
 
 int vec_insert(void* vec, void* item, size_t index) {
-    if (index >= vec_size(vec))
-        return 0;
+    if (index == vec_size(vec))
+        return vec_append(vec, item);
 
     void** v = vec;
     head* h = *v - sizeof(head);
