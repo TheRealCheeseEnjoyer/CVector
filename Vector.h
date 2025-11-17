@@ -18,6 +18,8 @@ int vec_append(void* vec, void* item);
 
 int vec_append_empty(void* vec);
 
+void vec_reserve(void* vec, size_t capacity);
+
 int vec_insert(void* vec, void* item, size_t index);
 
 size_t vec_capacity(void* vec);
