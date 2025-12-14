@@ -26,7 +26,19 @@ void* vec_init_cap(size_t itemSize, size_t capacity) {
 
     memory->itemSize = itemSize;
     memory->size = 0;
-    memory->capacity = DEFAULT_CAPACITY;
+    memory->capacity = capacity;
+    return memory + 1;
+}
+
+void * vec_init_size(size_t itemSize, size_t size) {
+    head* memory = calloc(sizeof(head) + itemSize * size, 1);
+    if (memory == NULL) {
+        return NULL;
+    }
+
+    memory->itemSize = itemSize;
+    memory->size = size;
+    memory->capacity = size;
     return memory + 1;
 }
 
@@ -83,6 +95,15 @@ void vec_reserve(void* vec, size_t capacity) {
     h = newMemory;
     h->capacity = newCapacity;
     *v = h + 1;
+}
+
+void vec_resize(void **vec, size_t newSize) {
+    head* h = *vec - sizeof(head);
+    if (h->capacity < newSize)
+        vec_reserve(vec, newSize);
+
+    // Cannot use h because if reallocation occurred in vec_reserve it wouldn't be valid anymore
+    ((head*)(*vec - sizeof(head)))->size = newSize;
 }
 
 int vec_insert(void* vec, void* item, size_t index) {

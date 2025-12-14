@@ -11,6 +11,8 @@ void* vec_init(size_t itemSize);
 /// @return pointer to vector
 void* vec_init_cap(size_t itemSize, size_t capacity);
 
+void* vec_init_size(size_t itemSize, size_t size);
+
 /// @param vec vector
 /// @param item item to copy into the vector
 /// @return 0 on failure (e.g. out of memory for reallocations), 1 on success
@@ -19,6 +21,8 @@ int vec_append(void* vec, void* item);
 int vec_append_empty(void* vec);
 
 void vec_reserve(void* vec, size_t capacity);
+
+void vec_resize(void** vec, size_t newSize);
 
 int vec_insert(void* vec, void* item, size_t index);
 
